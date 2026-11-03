@@ -21,8 +21,9 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           port: 22
           script: |
-            cd ~/maru-web
+            cd ~/maru
             git pull origin master
+            cd web
             npm install
             npm run build
             pm2 restart maru-web
