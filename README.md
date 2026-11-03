@@ -1,6 +1,8 @@
 # 🦆 maru — IoT 스마트홈 컨트롤러
 
 > MQTT over WebSocket 기반의 실시간 IoT 제어 풀스택 프로젝트
+>
+> 2026년 3월 학습용으로 만들어 직접 운영해 본 프로젝트입니다. 지금은 EC2 서버를 내려 두어 라이브 데모는 없고, 코드와 구성만 공개합니다.
 
 웹 UI에서 버튼을 누르면 AWS EC2의 MQTT 브로커를 거쳐 집 안의 ESP32로 신호가 전달되고, LED의 ON/OFF와 밝기가 제어됩니다. ESP32는 변경된 상태를 다시 발행해 웹 UI에 실시간으로 반영합니다.
 
@@ -44,10 +46,9 @@ maru/
 │   └── maru_light/
 │       ├── maru_light.ino      ESP32 펌웨어
 │       └── secrets.h.example   자격증명 템플릿
-└── .github/workflows/          EC2 자동 배포
 ```
 
-브로커(Aedes)는 EC2에서 직접 운영되며 이 저장소에 포함되어 있지 않습니다.
+브로커(Aedes)는 EC2에서 직접 운영했으며 이 저장소에 포함되어 있지 않습니다.
 
 ---
 
@@ -157,13 +158,12 @@ Arduino IDE에서 보드를 **ESP32 DevkitC V1** 로 선택하고, `WiFiManager`
 | 웹 환경 변수 | `web/.env.local` (gitignore) |
 | 펌웨어 자격증명 | `firmware/maru_light/secrets.h` (gitignore) |
 | EC2 SSH 키 | 로컬 `*.pem` (gitignore) |
-| 배포용 비밀값 | GitHub Actions Secrets (`EC2_HOST`, `EC2_KEY`) |
 
 ---
 
 ## 배포
 
-`master` 브랜치에 푸시되면 GitHub Actions가 EC2에 SSH로 접속해 `web/` 을 빌드하고 PM2로 재시작합니다. 설정은 `.github/workflows/deploy.yml` 에 있습니다.
+운영 당시에는 `master` 브랜치에 푸시하면 GitHub Actions가 EC2에 SSH로 접속해 웹을 빌드하고 PM2로 재시작했습니다. 서버를 내린 뒤 배포 워크플로는 삭제했습니다.
 
 ---
 
